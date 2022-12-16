@@ -60,7 +60,7 @@ Info "next version is: ${NEXT_VERSION}"
 # Generate new version with `git tag`.
 Info "updating version..."
 git tag -a $NEXT_VERSION -m "${COMMENT_FROM_LATEST_COMMIT}"
-#git push origin --tags $NEXT_VERSION
+git push origin --tags $NEXT_VERSION
 ERR=$?
 if [[ $ERR != 0 ]]; then
     Error "error trying to update version!"
