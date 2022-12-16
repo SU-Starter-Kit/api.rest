@@ -63,7 +63,12 @@ func buildRouter(lggr logger.CompanyLogger) *gin.Engine {
 }
 
 func buildLogger(correlationId string) logger.CompanyLogger {
-	return logger.NewBuilder().
-		WithCorrelationId(correlationId).
-		Build()
+	lggr, err := logger.New(
+		logger.WithCorrelationid(correlationId),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	return lggr
 }
