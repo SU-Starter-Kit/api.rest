@@ -25,7 +25,7 @@ type UserHandler struct {
 // @Success 200 {object} map[string]string
 // @Router /login [post]
 func (uh *UserHandler) UserLogin(ctx *gin.Context) {
-	uh.lggr.Info(messages.New("").Message())
+	uh.lggr.Info(messages.New(""))
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "Hello",
 	})
