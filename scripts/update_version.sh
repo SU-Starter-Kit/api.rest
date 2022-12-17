@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ## Defining binaries and tools.
 GET_VER=./getver
 
@@ -26,13 +28,17 @@ if [[ $(uname -s) == "Linux" ]]; then
   SCRIPTS_BIN=$CURRENT_DIR/bin_lnx # sets to linux
 fi
 
+# Delete all local tags to avoid conflicts
+Info "deleting all local tags..."
+git tag -d $(git tag)
+
 # Get latest tag
 Info "fetching repo for latest tags..."
 git fetch --all --tags
 
 # Get current version with git tag.
 Info "getting latest version from git remote tag..."
-CURRENT_VERSION=$(git describe --tags --abbrev=0)
+CURRENT_VERSION=$(git tag | tail -n 1)
 Info "current version: ${CURRENT_VERSION}" 
 
 # Get latest semantic version commit comment.
