@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/getsentry/sentry-go"
@@ -58,6 +59,19 @@ func buildRouter(lggr logger.CompanyLogger) *gin.Engine {
 
 	// Swagger routes
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+
+	// Liveleness and Readiness routes
+	router.GET("/liveleness", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"status": "UP",
+		})
+	})
+
+	router.GET("/readiness", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"status": "UP",
+		})
+	})
 
 	return router
 }
